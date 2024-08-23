@@ -25,7 +25,7 @@ int main(int argc, char *argv[]) {
 }
 
 unsigned int getNumber(char *prompt, unsigned int max) {
-    unsigned int    num;`   
+    unsigned int    num;
     char            input[30];
 
     while (1) {
