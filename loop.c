@@ -30,8 +30,8 @@ unsigned int getNumber(char *prompt, unsigned int max) {
 
     while (1) {
         printf("%s", prompt);
-       fgets(input, sizeof(input), stdin);
-	    // scanf("%d", &num);
+        // fgets(input, sizeof(input), stdin);
+	    scanf("%s", input);
         num = atoi(input);
         if (num >= 0 && num <= max) {
             return num;
