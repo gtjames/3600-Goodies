@@ -29,11 +29,11 @@ unsigned int getNumber(char *prompt, unsigned int max) {
     char            input[30];
 
     while (1) {
-        printf("%s", prompt);
+        printf("%s", prompt);               //  Ask user to enter a number
         // fgets(input, sizeof(input), stdin);
-	    scanf("%s", input);
-        num = atoi(input);
-        if (num >= 0 && num <= max) {
+	    scanf("%s", input);                 //  get the text
+        num = atoi(input);                  //  convert to int
+        if (num >= 0 && num <= max) {       //  
             return num;
         }
     }
