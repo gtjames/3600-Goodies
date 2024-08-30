@@ -6,13 +6,13 @@ unsigned int getNumber(char *prompt, unsigned int max);
 int main(int argc, char *argv[]) {
     int first;
     int second;
-    if (argc == 3) {
-        first  = atoi(argv[1]);
-        second = atoi(argv[2]);
+    if (argc == 3) {				//	user has two input params on the command line
+        first  = atoi(argv[1]);			//	convert first to int
+        second = atoi(argv[2]);			//	convert second to int
     }
-    else if (argc == 2) {
-        first  = atoi(argv[1]);
-        second = getNumber("Enter 2nd #: ", 100);
+    else if (argc == 2) {			//	user has only asingle command line param
+        first  = atoi(argv[1]);			//	convert first to int
+        second = getNumber("Enter 2nd #: ", 100);	//	ask user for the second number
     }
     else if (argc == 1) {                           //  user entered no parmas
         first  = getNumber("Enter 1st #: ", 100);   //  ask user for param 1
