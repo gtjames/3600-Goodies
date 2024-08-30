@@ -4,8 +4,7 @@
 unsigned int getNumber(char *prompt, unsigned int max);
 
 int main(int argc, char *argv[]) {
-    int first;
-    int second;
+    int first, second;			//	force a merge
     if (argc == 3) {				//	user has two input params on the command line
         first  = atoi(argv[1]);			//	convert first to int
         second = atoi(argv[2]);			//	convert second to int
