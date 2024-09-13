@@ -7,6 +7,7 @@ The basic workflow of GitHub involves a series of steps to manage and collaborat
 •	**Configure Git**: Set up your Git identity.
 
 `git config --global user.name "Your Name"`
+
 `git config --global user.email "your.email@example.com"`
 
 2. **Creating a Repository**
