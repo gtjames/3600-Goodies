@@ -20,7 +20,7 @@
 {
     if (NR > 1) {  # Skip the header row
         crimeType = $8  # Get the crime type (OFNS_DESC)
-        hour = substr($3, 1, 2)  # Extract the hour from CMPLNT_FR_TM
+        hour = +substr($3, 1, 2)  # Extract the hour from CMPLNT_FR_TM
         
         # Increment the count for the crime type and hour
         crimeCount[crimeType][hour]++
@@ -50,9 +50,8 @@ END {
         }
         print ""  # Add a blank line for better readability
     }
-    asort(crimeHour)
-    for (hr in crimeHour) {
+
+    for (hr = 0; hr < 24; hr++) {       # in crimeHour) {
         print "Hour of the day:", hr, " # of crimes: " crimeHour[hr]
     }
 }
-    

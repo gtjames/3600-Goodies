@@ -1,0 +1,21 @@
+Globbing
+ls *.txt	ls name?.txt
+
+apropos more
+
+find . -name "*.c" -exec ls -l {} \;
+
+permissions lnks user    group   size    last mod        name
+-rwx------  1 garyjames  staff   1177 Aug 22 19:27 Recitation-04.sh
+-rwxr-xr-x@ 1 garyjames  staff  34096 Aug 20 20:02 t_FiveChildren
+-rw-------  1 garyjames  staff   1059 Aug 11 22:51 t_FiveChildren.c
+drwxr-xr-x@ 3 garyjames  staff     96 Aug 18 23:38 t_FiveChildren.dSYM
+
+	First character: Indicates the file type.
+	•	-: Regular file.
+	•	d: Directory.
+	•	l: Symbolic link.
+	•	b: Block device.
+	•	c: Character device.
+
+    lines matching one character ^.$
