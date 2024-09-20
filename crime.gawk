@@ -1,4 +1,5 @@
 # gawk -F, -f crime.gawk 100K.csv
+
 #   1           2                 3             4               5               6
 # CMPLNT_NUM, CMPLNT_FR_DT,   CMPLNT_FR_TM, CMPLNT_TO_DT,   CMPLNT_TO_TM,   RPT_DT,
 # 101109527,  12/31/2015,     23:45:00,     0,              0,              12/31/2015,
