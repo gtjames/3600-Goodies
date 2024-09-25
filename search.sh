@@ -4,7 +4,7 @@
 if [ "$#" -ne 2 ]; then
     echo "$@"
     echo "Usage: $0 <directory> <token>"
-    exit 1
+    exit 42
 fi
 
 # Directory to search

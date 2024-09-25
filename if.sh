@@ -14,7 +14,7 @@
 # 	•	-z: string is null (empty)
 # 	•	-n: string is not null (not empty)
 
-if [ "$#" -eq 0 ]; then
+if [ "$#" -lt 4 ]; then
     echo "$0 needs 4 parameters two numbers followed by two strings"
     exit
 fi
