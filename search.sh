@@ -2,6 +2,7 @@
 
 # Check if the correct number of arguments are provided
 if [ "$#" -ne 2 ]; then
+    echo "$@"
     echo "Usage: $0 <directory> <token>"
     exit 1
 fi

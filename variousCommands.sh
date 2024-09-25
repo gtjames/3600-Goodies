@@ -58,21 +58,6 @@ echo $1
 echo $3 $2 $1
 script a b c d e f
 
-
-look at bash script control structures
-Bash provides several types of control structures for decision-making, loops, and conditional execution. Here’s a quick guide to the most commonly used Bash control structures:
-
-1. Conditional Statements (if-elif-else)
-
-Bash uses the if statement to execute commands based on conditions.
-if [ condition ]; then
-    # commands if condition is true
-elif [ another_condition ]; then
-    # commands if another condition is true
-else
-    # commands if no condition is true
-fi
-
 #!/bin/bash
 
 num=50
@@ -84,6 +69,8 @@ elif [ $num -eq 5 ]; then
 else
     echo "Number is less than 10."
 fi
+
+for index in 1 2 3 4 5 6 7 8 9 20
 
 for var in list; do
     # commands
@@ -109,29 +96,19 @@ while [ $count -le 5 ]; do
     echo "Count: $count"
     count=$((count + 1))
 done
-
-case $variable in
-    pattern1)
-        # commands for pattern1
-        ;;
-    pattern2)
-        # commands for pattern2
-        ;;
-    *)
-        # default commands if no pattern matches
-        ;;
-esac
-
 #!/bin/bash
 
 read -p "Enter a letter: " letter
 
 case $letter in
-    a)
-        echo "You entered 'a'."
+    a|A)
+        echo "You entered '$letter'."
         ;;
-    b)
-        echo "You entered 'b'."
+    b|B)
+        echo "You entered '$letter'."
+        ;;
+    [c-g]|[C-G])
+        echo "You entered '$letter'."
         ;;
     *)
         echo "You entered something else."

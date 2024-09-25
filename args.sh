@@ -5,8 +5,16 @@
 #       Each argument is treated as a separate word.
 #   "$#" is a special variable in Bash that holds the count of your arguments
 
-echo "You entered $# arguments"
+# Initialize total to 0
+total=0
+
+echo "You entered $# arguments in app $0"
 # Loop through all the command line arguments
-for arg in "$@"; do
-    echo "Argument: $arg"
+for num in "$@"; do
+    # Add each argument to the total
+    total=$((total + num))
+    echo "Argument: $num"
 done
+
+# Print the total sum
+echo "Total: $total"

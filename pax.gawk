@@ -1,4 +1,7 @@
 # gawk -F, -f pax.gawk Titanic.csv 
+BEGIN {
+    printf "%-20s %-8s %10s\n", "Class", "Count", "Average";
+}
 {
     if (NR > 1) {
         type[$4]++;
@@ -10,7 +13,7 @@
 END {
     for (t in type) {
         avgAge = ageSum[t] / type[t];
-        print t ": Count=" type[t] ", Average Age=" avgAge;
+        printf "%-20s %6s %f\n", t, type[t], avgAge;
     }
     print "Count=" totPax ", Average Age=" totAge / totPax;
 }
