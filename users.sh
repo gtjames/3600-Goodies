@@ -3,7 +3,7 @@
 # Function to process user IDs
 process_user_ids() {
   local user_ids="$1"
-    echo "$user_ids[0]"
+    echo "$user_ids"
   # Loop through each user ID
   for user in $user_ids; do
     echo "Active Username: $user"
