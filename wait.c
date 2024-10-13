@@ -14,7 +14,8 @@ int main() {
         i = atoi(input);
         if(fork() == 0) {
             /* child */
-            execlp( cmd[i], cmd[i], (char *)0 ); printf("execlp failed\n");
+            execlp( cmd[i], cmd[i], (char *)0 ); 
+            printf("execlp failed\n");      //  we only get here on a failure
             exit(1);
         }
         else {
