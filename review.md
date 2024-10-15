@@ -61,7 +61,7 @@ sed '2,4! s/old/new/g' file.txt
 comparing numbers in a shell == or -eq
 
 #   skips lines that are commented out
-sed '/^#/! s/old/new/g' file.txt
+sed '/^-/! s/parallels/nothing/g' list
 
 # ignore any line containing error
 grep -v 'error' file.txt | sed 's/old/new/g'
