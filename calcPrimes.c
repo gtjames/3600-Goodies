@@ -3,10 +3,20 @@
 #include <pthread.h>
 #include <math.h>
 
+void sortArray      (int *arr, int n);
+void printResults   (int array[], int primeCount);
+int *getParams      (int argc, char *argv[]);
+
+#define MAX_PRIMES  80000   // Set a maximum size for the prime array
 // #define MAX_BASE    10000
 // #define blockSize        1000
-#define MAX_PRIMES  5000   // Set a maximum size for the prime array
 // #define NUM_THREADS 8       // Number of threads to run
+
+/**
+ *      If you use this code will will need to compile from the
+ *          command line using this command
+ *              gcc calcPrimes.c utils.c -o calcPrimes
+ */
 
 int prime_array[MAX_PRIMES]; // Global array to hold prime numbers
 int prime_count = 0;         // Counter for primes in the array
@@ -45,7 +55,7 @@ void* calc_primes(void* arg) {
         base = current_base;                //  Get the current base
         current_base += blockSize;               //  Update the base for the next thread
         pthread_mutex_unlock(&mutex);       //  Unlock the mutex after modifying current_base
-        printf("Getting next tranche %d for thread %d\n", base, thread_id);
+        printf("Thread %d: Next bucket starting at %d\n", thread_id, base);
 
         // Calculate primes between base and base + blockSize
         for (int num = base; num < base + blockSize; num++) {
@@ -63,55 +73,13 @@ void* calc_primes(void* arg) {
     return NULL;
 }
 
-void sortArray(int *arr, int n) {
-    for (int k = 0; k < n; k++) printf ("%d ", arr[k]);
-    printf("\n");
-
-    for (int i = 0; i < n - 1; i++) {
-       for (int j = i + 1; j < n - i - 1; j++) {
-            if (arr[j] < arr[i]) {
-                // Swap arr[j] and arr[j + 1]
-                int temp = arr[j];
-                arr[j] = arr[i];
-                arr[i] = temp;
-            } else if (arr[j] > arr[n - i - 1]) {
-                // Swap arr[j] and arr[n - i - 1]
-                int temp = arr[j];
-                arr[j] = arr[n - i - 1];
-                arr[n - i - 1] = temp;
-            }
-        }
-        for (int k = 0; k < n; k++) printf ("%d ", arr[k]);
-        printf("\n");
-    }
-}
-
-void     getParams(int argc, char *argv[]) {
-    char    input[20];
-
-    if(argc < 4){
-        printf("# of Threads : ");
-        fgets(input, sizeof(input), stdin);
-        numThreads = atoi(input);
-
-        printf("Max # : ");
-        fgets(input, sizeof(input), stdin);
-        maxBase = atoi(input);
-
-        printf("Block Size : ");
-        fgets(input, sizeof(input), stdin);
-        blockSize = atoi(input);
-    } else {
-        numThreads  = atoi(argv[1]);
-        maxBase     = atoi(argv[2]);
-        blockSize   = atoi(argv[3]);
-    }
-    printf("Process Params:\n\tThreads:\t%d\n\tLast Prime:\t%d\n\tRequest Size:\t%d\n", numThreads, maxBase, blockSize);
-}
-
 int main(int argc, char *argv[]) {
 
-    getParams(argc, argv);
+    //  returns an array of params
+    int *vars = getParams(argc, argv);
+    numThreads  = vars[0];
+    maxBase     = vars[1];
+    blockSize   = vars[2];
 
     pthread_t threads[numThreads];      //  save Thread IDs
     
@@ -134,13 +102,7 @@ int main(int argc, char *argv[]) {
     pthread_mutex_destroy(&mutex);
 
     sortArray(prime_array, prime_count);
-    // Print the collected primes
-    printf("Primes found: %d\n%4d  ", prime_count, 0);
-    for (int i = 0; i < prime_count; i++) {
-        printf("%4d ", prime_array[i]);
-        if ((i + 1) % 15 == 0) printf("\n%4d - ", i+1);
-    }
-    printf("\n");
+    printResults(prime_array, prime_count);
 
     return 0;
 }

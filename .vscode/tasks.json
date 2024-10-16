@@ -9,6 +9,7 @@
                 "-fansi-escape-codes",
                 "-g",
                 "${file}",
+                "utils.c",
                 "-o",
                 "${fileDirname}/${fileBasenameNoExtension}"
             ],
