@@ -14,7 +14,7 @@ char sentence[MAX_LEN];
 int     nextLetter = 0;
 
 int getNextIndex() {
-    int index = nextLetter+1;
+    int index = nextLetter;
     sleep(0);
     nextLetter = nextLetter + 1;
     return index;
