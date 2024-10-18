@@ -4,7 +4,7 @@
 #include <string.h>
 #include <unistd.h>
 
-#define MAX_LEN 50
+#define MAX_LEN 120
 
 // Global variables
 char sentence[MAX_LEN];
@@ -45,7 +45,7 @@ int main() {
     
     
     // Read input sentence
-    printf("Enter a sentence (max 50 characters): ");
+    printf("Enter a sentence (max %d characters): ", MAX_LEN);
     fgets(sentence, MAX_LEN, stdin);
 
     int len = strlen(sentence);
