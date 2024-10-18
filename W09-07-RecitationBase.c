@@ -8,7 +8,9 @@
 
 // Global variables
 char sentence[MAX_LEN];
-pthread_mutex_t lock;
+
+//  define the mutex lock
+
 int     nextLetter = 0;
 
 int getNextIndex() {
@@ -40,8 +42,8 @@ int main() {
     int indices[MAX_LEN];
 
     // Initialize the mutex lock
-    pthread_mutex_init(&lock, NULL);
-
+    
+    
     // Read input sentence
     printf("Enter a sentence (max 50 characters): ");
     fgets(sentence, MAX_LEN, stdin);
@@ -60,7 +62,7 @@ int main() {
     }
 
     // Destroy the mutex lock
-    pthread_mutex_destroy(&lock);
+
 
     // Print the modified sentence
     printf("Modified sentence: %s\n", sentence);
