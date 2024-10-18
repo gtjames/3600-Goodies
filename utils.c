@@ -52,9 +52,9 @@ void printResults(int array[], int primeCount) {
 //  if the command line has not numbers as the user
 int *getParams(int argc, char *argv[]) {
     char    input[20];
-    static  int vars[3];
+    static  int vars[4];
 
-    if(argc < 4){
+    if(argc < 5){
         printf("# of Threads : ");
         fgets(input, sizeof(input), stdin);
         vars[0] = atoi(input);      //      numThreads
@@ -66,10 +66,15 @@ int *getParams(int argc, char *argv[]) {
         printf("Block Size : ");
         fgets(input, sizeof(input), stdin);
         vars[2] = atoi(input);      //      blockSize
+
+        printf("Shared Mutex : ");
+        fgets(input, sizeof(input), stdin);
+        vars[3] = input[0] == 'T';      //      blockSize
     } else {
         vars[0] = atoi(argv[1]);    //      numThreads
         vars[1] = atoi(argv[2]);    //      maxBase
         vars[2] = atoi(argv[3]);    //      blockSize  
+        vars[3] =      argv[4][0] == 'T';  //      sharedMutex
     }
     printf("Process Params:\n\tThreads:\t%d\n\tLast Prime:\t%d\n\tRequest Size:\t%d\n", vars[0], vars[1], vars[2]);
     return vars;

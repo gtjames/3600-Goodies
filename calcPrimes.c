@@ -3,27 +3,24 @@
 #include <pthread.h>
 #include <math.h>
 
-void sortArray      (int *arr, int n);
-void printResults   (int array[], int primeCount);
-int *getParams      (int argc, char *argv[]);
-
-#define MAX_PRIMES  80000   // Set a maximum size for the prime array
-// #define MAX_BASE    10000
-// #define blockSize        1000
-// #define NUM_THREADS 8       // Number of threads to run
-
 /**
  *      If you use this code will will need to compile from the
  *          command line using this command
  *              gcc calcPrimes.c utils.c -o calcPrimes
  */
 
+void sortArray      (int *arr, int n);
+void printResults   (int array[], int primeCount);
+int *getParams      (int argc, char *argv[]);
+
+#define MAX_PRIMES  80000   // Set a maximum size for the prime array
+
 int prime_array[MAX_PRIMES]; // Global array to hold prime numbers
 int prime_count = 0;         // Counter for primes in the array
-int current_base = 2;        // Start base for prime calculations
-int numThreads, maxBase, blockSize;
+int current_base = 0;        // Start base for prime calculations
+int numThreads, maxBase, blockSize, sharedMutex;
 
-pthread_mutex_t mutex;       // Mutex to protect shared resources
+pthread_mutex_t mutex[2];       // Mutex to protect shared resources
 
 // Function to check if a number is prime
 int is_prime(int n) {
@@ -45,26 +42,26 @@ void* calc_primes(void* arg) {
         int base;
         
         // Lock mutex to get the current base
-        pthread_mutex_lock(&mutex);         //  accessing current_base
+        pthread_mutex_lock(&mutex[0]);         //  accessing current_base
         if (current_base > maxBase) {      //  Check if we are done
             printf("last base %d for thread %d\n", base, thread_id);
-            pthread_mutex_unlock(&mutex);   //  Unlock the mutex and exit
+            pthread_mutex_unlock(&mutex[0]);   //  Unlock the mutex and exit
             break;                          //  all primes are exhausted
         }
                                             //  zone is still locked
         base = current_base;                //  Get the current base
         current_base += blockSize;               //  Update the base for the next thread
-        pthread_mutex_unlock(&mutex);       //  Unlock the mutex after modifying current_base
+        pthread_mutex_unlock(&mutex[0]);       //  Unlock the mutex after modifying current_base
         printf("Thread %d: Next bucket starting at %d\n", thread_id, base);
 
         // Calculate primes between base and base + blockSize
         for (int num = base; num < base + blockSize; num++) {
             if (is_prime(num)) {
-                pthread_mutex_lock(&mutex);             //  need access to prime count and prime array
+                pthread_mutex_lock(&mutex[sharedMutex?0:1]);             //  need access to prime count and prime array
                 if (prime_count < MAX_PRIMES) {         //  do we have room for another prime
                     prime_array[prime_count++] = num;   //  Add prime to the array
                 }
-                pthread_mutex_unlock(&mutex);           //  prime save continue
+                pthread_mutex_unlock(&mutex[sharedMutex?0:1]);           //  prime save continue
             }
         }
     }
@@ -74,6 +71,11 @@ void* calc_primes(void* arg) {
 }
 
 int main(int argc, char *argv[]) {
+    
+    clock_t start, end;
+    double cpu_time_used;
+    
+    start = clock();
 
     //  returns an array of params
     int *vars = getParams(argc, argv);
@@ -84,7 +86,8 @@ int main(int argc, char *argv[]) {
     pthread_t threads[numThreads];      //  save Thread IDs
     
     // Initialize the mutex
-    pthread_mutex_init(&mutex, NULL);
+    pthread_mutex_init(&mutex[0], NULL);
+    pthread_mutex_init(&mutex[1], NULL);
 
     // Create threads to calculate primes
     for (int i = 0; i < numThreads; i++) {
@@ -99,10 +102,15 @@ int main(int argc, char *argv[]) {
     }
 
     // Destroy the mutex
-    pthread_mutex_destroy(&mutex);
+    pthread_mutex_destroy(&mutex[0]);
+    pthread_mutex_destroy(&mutex[1]);
 
     sortArray(prime_array, prime_count);
     printResults(prime_array, prime_count);
+
+    end = clock();
+    cpu_time_used = ((double) (end - start)) / CLOCKS_PER_SEC;
+    printf("time: %f\n", cpu_time_used);
 
     return 0;
 }
