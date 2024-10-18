@@ -31,8 +31,6 @@ void* capitalize(void* arg) {
 
     if (index % 2 == 1) {           //  mod 2 == 1 this is an odd character
         sentence[index] = '_';  //   toupper(sentence[index]);
-    } else {
-        sentence[index] = toupper(sentence[index]);
     }
     printf("The new sentence is [%2d]: %c\n", index, sentence[index]);
 
