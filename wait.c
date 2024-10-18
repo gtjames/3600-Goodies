@@ -21,7 +21,7 @@ int main() {
         }
         else {
             /* parent */ 
-            wait( (int *)0 );
+            wait( (int *)0 );       //  wait for any child of mine to complete
             printf("child finished\n");
         }
     } /* while */
