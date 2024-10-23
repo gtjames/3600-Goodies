@@ -15,16 +15,20 @@ int main()
 {
     int fd[2], bytesWritten = 0, bytesRead;
     char message[100]; /* Parent process' message buffer */
+
     signal(SIGPIPE, signal_catcher);
-    pipe(fd);         /* Create pipe */
-    close(fd[WRITE]); /* Close used end */
-    printf("About to read from pipe\n");
+
+    pipe(fd);                   /* Create pipe */
+    close(fd[WRITE]);           /* Close used end */
+
+    printf("About to read from an empty pipe\n");
     bytesRead = read(fd[READ], message, 100);
-    printf("%i bytes were read with write closed\n", bytesRead);
-    close(fd[READ]); /* Close used end */
-    pipe(fd);        /* Recreate unnamed pipe */
-    close(fd[READ]); /* Close unused end */
-    printf("About to write to pipe\n");
+    printf("%i bytes were read with write closed\n\n", bytesRead);
+    close(fd[READ]);            /* Close used end */
+
+    pipe(fd);                   /* Recreate unnamed pipe */
+    close(fd[READ]);            /* Close unused end */
+    printf("About to write to pipe that is closed for reading\n");
     bytesWritten = write(fd[WRITE], phrase, strlen(phrase) + 1);
     printf("%i bytes were written with read end closed\n", bytesWritten);
     close(fd[WRITE]);

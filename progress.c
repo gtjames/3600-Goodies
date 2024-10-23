@@ -9,6 +9,7 @@
 #define green   "\e[1;32m"   
 #define blue    "\e[1;34m"   
 #define cyan    "\e[0;36m"   
+#define reset   "\e[0m"
 
 char    *color = red, *colors[] = {red, green, blue, cyan};
 int     size = 100;
@@ -19,25 +20,23 @@ void handlerg (int iSig) { color = colors[1]; }
 void handlerb (int iSig) { color = colors[2]; }
 void handlerc (int iSig) { color = colors[3]; }
 
+void repeat(char *str, char c, int repeat) {
+    for (int i = 0; i < repeat; i++) {
+        str[i] = c;
+    }
+    str[repeat] = '\0'; // Null-terminate the string
+}
 void printProgressBar(int progress, int total) {
     int barWidth = 50;  // Width of the progress bar
     float percentage = (float)progress / total;
-    
-    printf("[");
+    char bar[200];
     
     int pos = barWidth * percentage;
-    for (int i = 0; i < barWidth; ++i) {
-        if (i < pos) {
-            // Green color for completed progress
-            printf("%s=", color);
-        } else {
-            // Red color for remaining progress
-            printf(" ");
-        }
-    }
-    
-    // Reset color and print percentage
-    printf("\e[0m] %d%%  \r", (int)(percentage * size));
+    repeat( bar,      '=', pos);
+    repeat(&bar[pos], ' ', barWidth-pos);
+    printf("[ %s%s%s ] %d%%  \r", color, bar, reset, (int)(percentage * size));
+
+    // empty the pipe
     fflush(stdout);
 }
 

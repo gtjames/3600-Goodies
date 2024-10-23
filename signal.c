@@ -20,6 +20,7 @@ void handler(int sig, char *cmd) {
 
 void myHandler(int iSig) {
     printf("\nIn myHandler for Signal: %d\n", iSig);
+    sleep(5);
 }
 
 void whoHandler (int iSig) { handler(iSig, "who"); }
@@ -31,6 +32,7 @@ void cmdHandler (int iSig) {
     fgets(input, sizeof(input), stdin);
     input[strlen(input)-1] = 0;
     handler(iSig, input);
+    sleep(5);
 }
 
 int main() {
@@ -45,7 +47,7 @@ int main() {
     while (1) {
         printf(".");
         i++;
-        sleep(1);
+        sleep(0);
         if(i%50 == 0) printf("\n%d ", i);
     }
     return 0;
