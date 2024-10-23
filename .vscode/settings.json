@@ -2,6 +2,7 @@
     "files.associations": {
         "*.py": "python",
         "stdlib.h": "c",
-        "unistd.h": "c"
+        "unistd.h": "c",
+        "atomic": "c"
     }
 }

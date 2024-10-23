@@ -39,10 +39,7 @@ void* capitalize(void* arg) {
 
 int main() {
     pthread_t threads[MAX_LEN];
-    int indices[MAX_LEN];
-
-    // Initialize the mutex lock
-    
+    int indices[MAX_LEN];    
     
     // Read input sentence
     printf("Enter a sentence (max %d characters): ", MAX_LEN);
@@ -61,11 +58,8 @@ int main() {
         pthread_join(threads[i], NULL);
     }
 
-    // Destroy the mutex lock
-
-
     // Print the modified sentence
-    printf("Modified sentence: %s\n", sentence);
+    printf("%s\n", sentence);
 
     return 0;
 }

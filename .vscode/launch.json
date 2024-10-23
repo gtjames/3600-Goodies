@@ -7,7 +7,7 @@
             "type": "cppdbg",
             "request": "launch",
             "program": "${fileDirname}/${fileBasenameNoExtension}",
-            "args": ["2", "100000", "2500"],
+            "args": ["100", "100", "2"],
             "stopAtEntry": false,
             "cwd": "${fileDirname}",
             "environment": [],

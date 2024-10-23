@@ -1,5 +1,6 @@
-// Modeling the command-line command:
-
+/* Modeling the command-line command:
+        ls -al | wc using pipes */
+        
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
