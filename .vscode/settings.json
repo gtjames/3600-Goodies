@@ -3,6 +3,7 @@
         "*.py": "python",
         "stdlib.h": "c",
         "unistd.h": "c",
-        "atomic": "c"
+        "atomic": "c",
+        "types.h": "c"
     }
 }

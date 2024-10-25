@@ -4,11 +4,10 @@
 #include <stdlib.h> 
 #include <unistd.h> 
 
-int main() {
+int main(int argc, char *argv[]) {
     int fd[2];
-    FILE *fp = fopen("file2", "r"); 
-    dup2(fileno(fp), 
-    fileno(stdin)); 
+    FILE *fp = fopen(argv[1], "r");     //  no error checking
+    dup2(fileno(fp), fileno(stdin)); 
     fclose(fp);
     pipe(fd);
     if (fork() == 0) {
