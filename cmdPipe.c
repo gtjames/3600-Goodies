@@ -14,17 +14,9 @@ enum
 int main()
 {
     int fd[2];
-    if (pipe(fd) == -1)
-    { /* generate the pipe */
-        perror("Pipe");
-        exit(1);
-    }
+    pipe(fd);
 
-    switch (fork())
-    {
-    case -1:
-        perror("Fork");
-        exit(2);
+    switch (fork()) {
     case 0: /* in child */
         dup2(fd[WRITE], fileno(stdout));
         close(fd[READ]);

@@ -24,6 +24,6 @@ int main() {
     write(0, " doc", 4);        /* because 0 was the smallest file descriptor */
                                 /* and now belongs to fd3 */
 
-    dup2(3, 2);                 /* duplicate channel 3 to channel 2 */ 
+    dup2(3, 2);                 /* dupliccate channel 3 to channel 2 */ 
     write(2, "?\n", 2);
 }

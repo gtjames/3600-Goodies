@@ -33,6 +33,7 @@ int main()
     printf("%i bytes were written with read end closed\n", bytesWritten);
     close(fd[WRITE]);
 }
+    
 void signal_catcher(int theSig)
 {
     printf("A SIGPIPE (%i) has been caught\n", theSig);
