@@ -89,10 +89,7 @@ int main() {
 
         // Fork a process to handle the client
         pid_t pid = fork();
-        if (pid < 0) {
-            perror("Fork failed");
-            close(client_socket);
-        } else if (pid == 0) {
+        if (pid == 0) {
             // In child process
             close(server_fd); // Close the listening socket in the child process
             handle_client(client_socket);
