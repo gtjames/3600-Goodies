@@ -21,6 +21,9 @@ void execute_command(char *command, char *response) {
     while (fgets(temp, sizeof(temp), fp) != NULL) {
         strcat(response, temp);
     }
+    if(strlen(response) == 0)
+        strcpy(response, "no data");
+    printf("waiting 2\n");
     pclose(fp);
 }
 
