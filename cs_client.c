@@ -4,11 +4,13 @@
 #include <unistd.h>
 #include <arpa/inet.h>
 
-#define PORT 8080
-#define BUFFER_SIZE 1024
+#define PORT            8080
+#define BUFFER_SIZE     1024
+#define HISTORY_LIMIT   20
 
 int main() {
-    int sock = 0;
+    char *history[HISTORY_LIMIT] = {NULL}; // Array of pointers to hold history
+    int sock = 0, h = 0;
     struct sockaddr_in serv_addr;
     char command[BUFFER_SIZE] = {0};
     char response[BUFFER_SIZE * 4] = {0}; // Larger buffer to receive command output
@@ -28,19 +30,32 @@ int main() {
     }
 
     while (1) {
-        printf("Enter a command to execute on server (or 'exit' to quit): ");
+        printf("Enter remote command -> ");
         fgets(command, BUFFER_SIZE, stdin);
 
         // Remove newline character from command
         command[strcspn(command, "\n")] = 0;
 
-        if (strcmp(command, "exit") == 0) {
+        if (strcmp(command, "exit") == 0 || strcmp(command, "q") == 0  || strcmp(command, "x") == 0 ) {
             break;
         } else if (strlen(command) == 0) {
+            printf("'x' | 'q' | 'exit' to quit: ");
             continue;
+        } else if (strcmp(command, "h") == 0 ) {
+            for (int i = 0; i < h && i < HISTORY_LIMIT; i++  ) {
+                printf("%3d: %s\n", i, history[i]);
+            }
+            continue;
+        } else if (command[0] == '!' ) {
+            int cmd = atoi(&command[1]);
+            strcpy(command, history[cmd]);
         }
-
         // Send the command to the server
+         // Allocate space for input and copy it to history
+        history[h] = malloc(strlen(command) + 1);  // Allocate exact space
+        strcpy(history[h], command);
+        h++;
+        h = h%HISTORY_LIMIT;
         send(sock, command, strlen(command), 0);
 
         // Receive the response from the server

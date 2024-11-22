@@ -63,3 +63,12 @@ pipeRedir
 mserver
 server
 client
+.DS_Store
+cs_mserver
+cs_client
+dup2
+helloWorld
+helloWorld.s
+code_arm64.deb
+keys.json
+__pycache__/socket.cpython-313.pyc

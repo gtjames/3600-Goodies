@@ -79,44 +79,24 @@ This command will output the sum and average of the values in the second column 
 
 To calculate the standard deviation of a column in a CSV file using gawk, you need to follow a two-pass approach: first, compute the mean of the values, and then calculate the standard deviation based on the mean. Here's a gawk script to do this, assuming the CSV file is named file.csv and the column of interest is the second column.
 
-gawk -F, '
-
-{
-
-\# Accumulate sum and count for calculating mean
-
-sum += $2
-
-sumsq += $2 \* $2
-
-count++
-
+gawk -F, '{
+  \# Accumulate sum and count for calculating mean
+  sum += $2
+  sumsq += $2 \* $2
+  count++
 }
-
 END {
-
-\# Calculate mean
-
-mean = sum / count
-
-\# Calculate variance
-
-variance = (sumsq / count) - (mean \* mean)
-
-\# Calculate standard deviation
-
-stddev = sqrt(variance)
-
-\# Print results
-
-print "Sum: " sum
-
-print "Mean: " mean
-
-print "Variance: " variance
-
-print "Standard Deviation: " stddev
-
+    \# Calculate mean
+    mean = sum / count
+    \# Calculate variance
+    variance = (sumsq / count) - (mean \* mean)
+    \# Calculate standard deviation
+    stddev = sqrt(variance)
+    \# Print results
+    print "Sum: " sum
+    print "Mean: " mean
+    print "Variance: " variance
+    print "Standard Deviation: " stddev
 }
 ' file.csv
 
@@ -140,29 +120,17 @@ This script will output the sum, mean, variance, and standard deviation of the v
 To find the longest field in a CSV file using gawk, you can write a script that keeps track of the longest field encountered as it processes each line and field. Here's an example script:
 
 gawk -F, '
-
 {
-
-for (i = 1; i <= NF; i++) {
-
-if (length($i) > max_length) {
-
-max_length = length($i)
-
-longest_field = $i
-
+  for (i = 1; i <= NF; i++) {
+    if (length($i) > max_length) {
+      max_length = length($i)
+      longest_field = $i
+    }
+  }
 }
-
-}
-
-}
-
 END {
-
-print "Longest field:", longest_field
-
-print "Length:", max_length
-
+  print "Longest field:", longest_field
+  print "Length:", max_length
 }' file.csv
 
 **Explanation:**

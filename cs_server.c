@@ -45,14 +45,14 @@ int main() {
 
     printf("Server is listening on port %d...\n", PORT);
 
-                                    //  note: 
+    //  ATTN:
     client_socket = accept(server_fd, (struct sockaddr *)&address, (socklen_t*)&addrlen);
 
     while (1) {
         memset(buffer, 0, BUFFER_SIZE);
         memset(response, 0, sizeof(response));
 
-        int read_size = recv(client_socket, buffer, BUFFER_SIZE, 0);    // note:
+        int read_size = recv(client_socket, buffer, BUFFER_SIZE, 0);    // TODO: 
         // int read_size = read(client_socket, buffer, BUFFER_SIZE);    // same as a file read
         if (read_size <= 0) {
             printf("Client disconnected.\n");
