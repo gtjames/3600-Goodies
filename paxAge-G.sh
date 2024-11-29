@@ -8,6 +8,6 @@ awk -F, 'NR > 1 {
 END { 
     for (class in ageSum) {
         avg = ageSum[class] / count[class];
-        printf "%-20s - Ave Age: %.2f\n", class, avg;
+        printf "%-20s %6d  %.2f\n", class, count[class], avg;
     }
 }' Titanic.csv

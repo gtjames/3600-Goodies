@@ -13,7 +13,7 @@ BEGIN {
 END {
     for (t in type) {
         avgAge = ageSum[t] / type[t];
-        printf "%-20s %6s %f\n", t, type[t], avgAge;
+        printf "%-20s %6d  %.2f\n", t, type[t], avgAge;
     }
     print "Count=" totPax ", Average Age=" totAge / totPax;
 }

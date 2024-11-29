@@ -5,11 +5,7 @@
 #include <stdlib.h>
 #include <unistd.h>
 
-enum
-{
-    READ,
-    WRITE
-};
+enum { READ, WRITE };
 
 int main()
 {
