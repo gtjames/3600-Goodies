@@ -7,7 +7,7 @@
 //        gtj Dec 2 2024
 int main() {
     unsigned int choice, num;
-    //  show the menu to start with
+    //  show the menu to get started
     menu();
     
     while (1) {        
