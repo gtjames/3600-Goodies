@@ -4,9 +4,10 @@
 // #include "Major-01.h"
 
 //   gcc Major01-Hints.c -o Major01 -g -lm
+//        gtj Dec 2 2024
 int main() {
     unsigned int choice, num;
-    //  show the menu to start with
+    //  show the menu to get started
     menu();
     
     while (1) {        
