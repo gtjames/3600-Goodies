@@ -73,3 +73,8 @@ code_arm64.deb
 keys.json
 __pycache__/socket.cpython-313.pyc
 .DS_Store
+sm
+socketServer
+socketClient
+tmp
+cs_server
