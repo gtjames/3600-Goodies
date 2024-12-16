@@ -78,3 +78,4 @@ socketServer
 socketClient
 tmp
 cs_server
+.DS_Store
