@@ -56,7 +56,7 @@ echo "Letter frequencies (most to least):"
 for letter in "${!freq[@]}"; do
     char=$(printf \\$(printf "%o" $letter))  # Convert ASCII back to character
     echo "$char:${freq[$letter]}  "
-done | sort -t : -k2,2nr | head -n5 | tr -d '\n'
+done | sort -t : -k2,2nr | head -n7 | tr -d '\n'
 echo
 
 # Cleanup temporary files
